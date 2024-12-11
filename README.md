@@ -1,6 +1,6 @@
-https://github.com/gabriel140282/Coleccion-de-Ejercicios-STL.git
+https://github.com/gabriel140282/Coleccion-de-Ejercicios-Flujo-Cplusplus.git
 
-Enunciado
+Enunciado: son los mismos ejercicios que std pero los vamos a trabajar con flujos
 Ejercicio 1: Utilización completa de un espacio de nombres Escribe un programa que defina un espacio de nombres "Matemáticas" que contenga dos funciones: suma y resta. Luego, desde la función main, utiliza estas funciones.
 
 Ejercicio 2: Espacio de nombres repartido entre diferentes archivos Crea un programa donde defines un espacio de nombres "Geometría" en dos archivos de código separados (por ejemplo, "triángulo.cpp" y "círculo.cpp"). Cada archivo debe contener una función (por ejemplo, "calcularArea") correspondiente a la geometría específica. Finalmente, desde la función main en otro archivo, utiliza estas funciones.
@@ -11,120 +11,134 @@ Ejercicio 4: Declaración de subespacios de nombres Crea un espacio de nombres "
 
 Ejercicio 5: Presentación de la STL Escribe un programa que utilice al menos tres diferentes contenedores de la STL (por ejemplo, vector, map y set). Para cada contenedor, realiza al menos una operación (como agregar elementos, eliminar elementos o buscar elementos).
 
-Propuesta de Solución:
+Propuesta de Solución
+Generalidades
 
-Ejercicio 1: Utilización completa de un espacio de nombres
+Crea un nuevo proyecto en CLion y añade un archivo main.cpp. Escribe el siguiente código:
 
-En un archivo .cpp:
-
-
-namespace Matematicas {
-    int suma(int a, int b) {
-        return a + b;
-    }
-    int resta(int a, int b) {
-        return a - b;
-    }
-}
+#include <iostream>
 
 int main() {
-    std::cout << "Suma: " << Matematicas::suma(5, 3) << std::endl;
-    std::cout << "Resta: " << Matematicas::resta(5, 3) << std::endl;
+    int num;
+    std::cout << "Ingresa un número: ";
+    std::cin >> num;
+    std::cout << "El número ingresado es: " << num << std::endl;
     return 0;
 }
-Ejercicio 2: Espacio de nombres repartido entre diferentes archivos
+Flujos integrados
 
-triangulo.cpp:
+Modifica el main.cpp anterior para incluir una cadena:
 
+#include <iostream>
+#include <string>
 
-namespace Geometria {
-    double calcularAreaTriangulo(double base, double altura) {
-        return (base * altura) / 2;
+int main() {
+    int num;
+    std::string text;
+    std::cout << "Ingresa un número: ";
+    std::cin >> num;
+    std::cout << "Ingresa un texto: ";
+    std::cin >> text;
+    std::cout << "El número ingresado es: " << num << "\nEl texto ingresado es: " << text << std::endl;
+    return 0;
+}
+Estado de un flujo
+
+Crea un nuevo proyecto y añade el siguiente código en main.cpp:
+
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ifstream file;
+    file.open("example.txt");
+    if (!file) {
+        std::cerr << "No se pudo abrir el archivo.\n";
+    } else {
+        std::cout << "El archivo se abrió correctamente.\n";
     }
+    file.close();
+    return 0;
 }
-circulo.cpp:
+Formato
 
+Modifica el primer programa para mostrar el número con dos decimales:
 
-namespace Geometria {
-    double calcularAreaCirculo(double radio) {
-        return 3.14 * radio * radio;
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    double num;
+    std::cout << "Ingresa un número: ";
+    std::cin >> num;
+    std::cout << "El número ingresado es: " << std::fixed << std::setprecision(2) << num << std::endl;
+    return 0;
+}
+Flujo de archivos
+
+Crea un nuevo proyecto y añade el siguiente código en main.cpp:
+
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::string text;
+    std::cout << "Ingresa un texto: ";
+    std::getline(std::cin, text);
+    
+    std::ofstream file;
+    file.open("example.txt");
+    if (file) {
+        file << text;
+        std::cout << "El texto se guardó correctamente.\n";
+    } else {
+        std::cerr << "No se pudo abrir el archivo.\n";
     }
-}
-main.cpp:
-
-
-int main() {
-    std::cout << "Area del triangulo: " << Geometria::calcularAreaTriangulo(5, 3) << std::endl;
-    std::cout << "Area del circulo: " << Geometria::calcularAreaCirculo(3) << std::endl;
+    file.close();
     return 0;
 }
-Ejercicio 3: Relación entre clase y espacio de nombres
+Flujo de cadenas
 
-En un archivo .cpp:
+Crea un nuevo proyecto y añade el siguiente código en main.cpp:
 
-
-namespace Geometria {
-    class Circulo {
-    private:
-        double radio;
-    public:
-        Circulo(double r) : radio(r) {}
-        double calcularArea() {
-            return 3.14 * radio * radio;
-        }
-        double calcularPerimetro() {
-            return 2 * 3.14 * radio;
-        }
-    };
-}
+#include <iostream>
+#include <sstream>
 
 int main() {
-    Geometria::Circulo c(5);
-    std::cout << "Area: " << c.calcularArea() << std::endl;
-    std::cout << "Perimetro: " << c.calcularPerimetro() << std::endl;
+    std::string text;
+    std::cout << "Ingresa un texto: ";
+    std::getline(std::cin, text);
+
+    std::stringstream ss;
+    ss << text;
+    std::string text_from_ss;
+    ss >> text_from_ss;
+    std::cout << "El texto desde el flujo de cadena es: " << text_from_ss << std::endl;
     return 0;
 }
-Ejercicio 4: Declaración de subespacios de nombres
+Argumentos locales
 
-En un archivo .cpp:
+Crea un nuevo proyecto y añade el siguiente código en main.cpp:
 
+#include <iostream>
+#include <fstream>
 
-namespace Ciencia {
-    namespace Fisica {
-        const double c = 299792458;
-        double calcularEnergia(double masa) {
-            return masa * c * c;
-        }
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        std::cerr << "Por favor, proporciona un argumento de texto.\n";
+        return 1;
     }
-}
 
-int main() {
-    std::cout << "Energia: " << Ciencia::Fisica::calcularEnergia(10) << std::endl;
+    std::ofstream file;
+    file.open("example.txt");
+    if (file) {
+        file << argv[1];
+        std::cout << "El texto se guardó correctamente.\n";
+    } else {
+        std::cerr << "No se pudo abrir el archivo.\n";
+    }
+    file.close();
     return 0;
 }
-Ejercicio 5: Presentación de la STL
 
-En un archivo .cpp:
-
-
-#include <vector>
-#include <map>
-#include <set>
-
-int main() {
-    // Vector
-    std::vector<int> numeros {1, 2, 3, 4, 5};
-    numeros.push_back(6);
-
-    // Map
-    std::map<std::string, int> edad;
-    edad["Juan"] = 25;
-    edad.erase("Juan");
-
-    // Set
-    std::set<int> conjunto {1, 2, 3, 4, 5};
-    conjunto.insert(6);
-    conjunto.erase(1);
-
-    return 0;
-}
+Para este último ejercicio, ejecuta el programa desde la terminal con un argumento, por ejemplo: ./myprogram "Hola mundo".
