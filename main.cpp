@@ -2,10 +2,12 @@
 #include "Ejercicio2/geometria.h"
 #include "Ejercicio4/ciencia.h"
 #include "Ejercicio5/Operaciones/operaciones.h"
+#include "flujoprograma.h"
 
 // MENSAJE IMPORTANTE: Este programa funciona colocando valores por parámetro (no pregunta los valores al usuario por pantalla)
 
 int main() {
+    iniciarCaptura();
     suma_numeros(8, 5);
     resta_numeros(4, 2);
     Geometria::calcularAreaTriangulo(10, 20);
@@ -14,6 +16,6 @@ int main() {
     circulo.calcularArea();
     circulo.calcularPerimetro();
     Programa::ejecutar(40,2,4,1);
-    ejecutarOperacion(2);
+    finalizarCaptura();
     return 0;
 }
