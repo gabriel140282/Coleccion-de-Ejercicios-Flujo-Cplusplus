@@ -1,14 +1,6 @@
-
-
 #ifndef OPERACIONES_H
 #define OPERACIONES_H
 
-
-
-class operaciones {
-
-};
-
-
+void ejecutarOperacion(int opcion);
 
 #endif //OPERACIONES_H
