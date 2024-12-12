@@ -10,7 +10,6 @@ void iniciarCaptura() {
     archivo_salida_terminal.open("../resultado_terminal.txt", std::ios::trunc); //Abrimos el archivo donde se guardará la salida del programa
     if(!archivo_salida_terminal) {
         std::cerr<<"No se pudo abrir archivo.txt para escritura."<<std::endl;
-        return;
     }
 
     cout_bufferr = std::cout.rdbuf(); //Guardamos el buffer del cout
